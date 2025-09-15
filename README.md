@@ -1,0 +1,2 @@
+# libft
+Custom static library
