@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/17 13:32:13 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/23 12:43:20 by sgaspari         ###   ########.fr       */
+/*   Created: 2025/09/23 11:51:24 by sgaspari          #+#    #+#             */
+/*   Updated: 2025/09/23 15:20:29 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_next_line(int fd)
 	char		*next_line;
 	ssize_t		num_read;
 
-	if (fd < 0 || fd >= MAX_FD)
+	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
 		return (NULL);
 	init_buffer(&(buffer[fd]));
 	while (ft_strchr(buffer[fd], '\n') == NULL)
@@ -54,7 +54,7 @@ static void	init_buffer(char **buffer)
 	{
 		*buffer = malloc(1);
 		if (*buffer == NULL)
-			exit (EXIT_FAILURE);
+			return ;
 		(*buffer)[0] = '\0';
 	}
 }
@@ -66,6 +66,8 @@ static char	*append_to_buffer(char **buffer, char *buf)
 	size_t	len_buffer;
 	size_t	len_buf;
 
+	if (*buffer == NULL)
+		return (NULL);
 	len_buffer = ft_strlen(*buffer);
 	len_buf = ft_strlen(buf);
 	len_new = len_buffer + len_buf;
@@ -73,7 +75,7 @@ static char	*append_to_buffer(char **buffer, char *buf)
 	if (new_buffer == NULL)
 	{
 		free(*buffer);
-		exit (EXIT_FAILURE);
+		return (NULL);
 	}
 	ft_strlcpy(new_buffer, *buffer, len_new + 1);
 	ft_strlcat(new_buffer, buf, len_new + 1);
@@ -87,6 +89,8 @@ static char	*extract_line(char **buffer)
 	char	*line;
 	size_t	len;
 
+	if (*buffer == NULL)
+		return (NULL);
 	if ((*buffer)[0] == '\0')
 	{
 		free(*buffer);
@@ -122,7 +126,6 @@ static char	*update_buffer(char **buffer)
 	if ((*buffer)[len] == '\0')
 	{
 		free(*buffer);
-		*buffer = NULL;
 		return (NULL);
 	}
 	new = ft_strdup((*buffer) + len + 1);
