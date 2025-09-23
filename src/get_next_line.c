@@ -6,7 +6,7 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 13:32:13 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/09/23 12:32:41 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:43:20 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd >= MAX_FD)
 		return (NULL);
 	init_buffer(&(buffer[fd]));
-	while (1)
+	while (ft_strchr(buffer[fd], '\n') == NULL)
 	{
 		num_read = read(fd, buf, BUFFER_SIZE);
 		if (num_read == -1)
@@ -122,6 +122,7 @@ static char	*update_buffer(char **buffer)
 	if ((*buffer)[len] == '\0')
 	{
 		free(*buffer);
+		*buffer = NULL;
 		return (NULL);
 	}
 	new = ft_strdup((*buffer) + len + 1);
