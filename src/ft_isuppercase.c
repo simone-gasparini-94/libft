@@ -6,11 +6,11 @@
 /*   By: sgaspari <sgaspari@student.42berlin.d      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 18:10:23 by sgaspari          #+#    #+#             */
-/*   Updated: 2025/12/09 18:10:55 by sgaspari         ###   ########.fr       */
+/*   Updated: 2025/12/09 18:12:32 by sgaspari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isuppercase(int c)
 {
-	return (c >= 'A' && c <= 'Z')
+	return (c >= 'A' && c <= 'Z');
 }
